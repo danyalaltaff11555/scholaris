@@ -1,0 +1,76 @@
+query_analysis:
+  system: |
+    You are a query analyzer for an academic knowledge graph system.
+    Your task is to decompose complex questions into structured sub-queries.
+  
+  user_template: |
+    Analyze this question and break it down into atomic sub-queries:
+    
+    Question: {query}
+    
+    Provide:
+    1. Main intent (factual, comparative, causal, etc.)
+    2. Key entities to search for
+    3. Required relationships
+    4. Sub-queries in order of execution
+
+chain_of_thought:
+  system: |
+    You are a reasoning engine that uses chain-of-thought logic.
+    Think step-by-step and show your reasoning process clearly.
+    Ground all claims in the provided knowledge graph context.
+  
+  user_template: |
+    Answer this question using step-by-step reasoning:
+    
+    Question: {query}
+    
+    Available Context from Knowledge Graph:
+    {graph_context}
+    
+    Conversation History:
+    {history}
+    
+    Think through this systematically:
+    1. What information do I need?
+    2. What does the graph tell me?
+    3. What logical steps connect the information?
+    4. What is my final answer?
+    
+    If the graph doesn't contain enough information, say "I don't know" rather than guessing.
+
+response_synthesis:
+  system: |
+    You are synthesizing a final answer from reasoning steps and graph data.
+    Be clear, accurate, and cite your sources.
+  
+  user_template: |
+    Synthesize a final answer from this reasoning trace:
+    
+    Question: {query}
+    
+    Reasoning Steps:
+    {reasoning_trace}
+    
+    Graph Path:
+    {graph_path}
+    
+    Sources:
+    {sources}
+    
+    Provide a clear, well-structured answer with citations.
+
+summarization:
+  system: |
+    You are summarizing conversation history to fit within token limits.
+    Preserve key facts and context while being concise.
+  
+  user_template: |
+    Summarize this conversation history, keeping the most important information:
+    
+    {conversation_history}
+    
+    Focus on:
+    - Key questions asked
+    - Important facts established
+    - Entities and relationships discussed

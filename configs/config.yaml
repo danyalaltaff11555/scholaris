@@ -1,0 +1,62 @@
+llm:
+  provider: anthropic
+  model: claude-sonnet-4
+  temperature: 0.1
+  max_tokens: 4096
+  timeout: 60
+
+neo4j:
+  uri: bolt://localhost:7687
+  database: scholaris
+  max_connection_lifetime: 3600
+  max_connection_pool_size: 50
+
+redis:
+  url: redis://localhost:6379
+  ttl: 3600
+  max_connections: 10
+
+chroma:
+  persist_directory: ./data/chroma
+  collection_name: scholaris_embeddings
+
+context:
+  max_tokens: 3000
+  summarization_trigger: 2500
+  history_window: 10
+
+graph:
+  max_hops: 3
+  min_confidence: 0.7
+  entity_types:
+    - CONCEPT
+    - AUTHOR
+    - PAPER
+    - METHOD
+    - DATASET
+    - THEORY
+  relation_types:
+    - DEFINES
+    - USES
+    - CITES
+    - AUTHORED
+    - PROPOSES
+    - VALIDATES
+    - CONTRADICTS
+    - EXTENDS
+
+reasoning:
+  max_steps: 5
+  verify_consistency: true
+  show_intermediate: true
+  enable_fallback: true
+
+extraction:
+  batch_size: 32
+  entity_confidence_threshold: 0.6
+  relation_confidence_threshold: 0.7
+
+embeddings:
+  model: sentence-transformers/all-MiniLM-L6-v2
+  dimension: 384
+  batch_size: 32
